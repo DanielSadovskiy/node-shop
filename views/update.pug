@@ -1,0 +1,21 @@
+include head
+div(class='wrap')
+  div(class='content')
+    header(class='jumbotron')
+        include order_header
+    div
+        form.dish_form
+            h3 update item
+            input(name="name" value=goods[0].name type="text" placeholder="Name")
+            div.thumbnail
+                img(class="updated_img" src=goods[0].image)
+                input(name="image" value=goods[0].image type="file" placeholder="Image")
+            textarea(name="description" cols="30", rows="5" placeholder="Description") #{goods[0].description}
+            input(name="price" type="number" value=goods[0].cost placeholder="Price")
+            input(name="category" type="number" value=goods[0].category placeholder="Category")
+        button(class="update" data-id=goods[0].id) update
+
+
+    include footer
+script(src='js/update.js')
+

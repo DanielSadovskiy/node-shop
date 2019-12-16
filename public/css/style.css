@@ -1,0 +1,210 @@
+.wrap{
+   display:flex;
+   background: #fff;
+   flex-direction: column;
+   height: 100%;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.content{
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+.jumbotron{
+    height: auto;
+    padding: 20px 0;
+}
+.jumbotron h1{
+    display: inline-block;
+}
+.w-100{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+.card-title{
+    text-align: center;
+    font-size: 16px;
+    height: 20px;
+    line-height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.card{
+    border: 1px solid #dedede;
+    height: 40vh !important;
+    margin: 10px 0 40px 0;
+}
+.card img{
+    display: block;
+    margin: 0 auto;
+    width: 96%;
+    height: 25vh;
+    
+}
+.card-text{
+    text-align: center;
+}
+
+/* --------NAV-------- */
+.site-nav{
+    position: fixed;
+    width: 300px;
+    min-height: 100vh;
+    z-index: 9999;
+    top: 0;
+    left: -300px;
+    color:#fff;
+    padding: 10px;
+    transition: all ease 1s;
+    -webkit-transition: all ease 1s;
+    -moz-transition: all ease 1s;
+    -ms-transition: all ease 1s;
+    -o-transition: all ease 1s;
+    background: #f01ecd;
+}
+.close-button-div{
+    text-align: right;
+    
+}
+.category-list a{
+    color:rgb(228, 217, 217);
+}
+.category_field{
+    display: flex;
+    justify-content: space-between;
+}
+.footer{
+    bottom: 0;
+    text-align: center;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.goods_info{
+    width: 400px;
+    display: block;
+    margin: 0 auto 20px;
+}
+.goods_image{
+    display: block;
+    margin: 0 auto;
+    width: 400px;
+}
+.pagination{
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+}
+.pagination input{
+    margin: 0 10px;
+    text-align: center;
+    width: 50px;
+}
+.delete_btn{
+    display:none;
+    background: #fff;
+    font-size: 22px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: red;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    box-shadow: #dedede
+}
+.delete_btn:hover{
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+.thumbnail{
+    position: relative;
+    display: block;
+    margin: 10px auto;
+    width: 300px;
+    height: 230px;
+    background: #f01ecd;
+}
+.updated_img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.thumbnail input{
+    margin: 0px !important;
+    z-index: 1;
+    line-height: 0;
+    font-size: 0;
+    border: none;
+    color:transparent;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-indent: -99999px
+}
+.update_btn{
+    display: none;
+    background: #fff;
+    font-size: 20px;
+    position: absolute;
+    top: 22px;
+    right: 0;
+    color: orange;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transform: rotate(-20deg);
+    box-shadow: #dedede;
+    -webkit-transform: rotate(-10deg);
+    -moz-transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+}
+.update_btn:hover{
+    transform: rotate(20deg);
+    -webkit-transform: rotate(20deg);
+    -moz-transform: rotate(20deg);
+    -ms-transform: rotate(20deg);
+    -o-transform: rotate(20deg);
+}
+.buy_block{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.buy_block span{
+    margin-right: 200px;
+}
+.dish_form{
+    max-width: 400px;
+    margin: 0 auto;
+}
+.dish_form input, .dish_form textarea, .dish_form button{
+    margin-top: 15px;
+    width: 100%;  
+}
+input[type="checkbox"]{
+    width: 10px;
+    margin-right: 5px;
+}
+.login,.register{
+    display: block;
+    margin: 0 auto;
+}
+.btn_create{
+    display:none;
+}

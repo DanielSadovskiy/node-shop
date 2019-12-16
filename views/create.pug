@@ -1,0 +1,19 @@
+include head
+div(class='wrap')
+  div(class='content')
+    header(class='jumbotron')
+        include order_header
+    div
+        form.dish_form
+            h3 create new item
+            input(name="name" type="text" placeholder="Name")
+            input(name="image" type="file" placeholder="Image")
+            textarea(name="description" cols="30", rows="5" placeholder="Description")
+            input(name="price" type="number" placeholder="Price")
+            input(name="category" type="number" placeholder="Category")
+        button.create_btn create
+
+
+    include footer
+script(src='js/create.js')
+

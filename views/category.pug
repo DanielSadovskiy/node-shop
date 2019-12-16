@@ -1,0 +1,26 @@
+include head.pug
+div(class='wrap')
+    div(class='content')
+        header(class='jumbotron')
+            include header
+        
+        div(class='container')
+            div(class='row')
+                div(class='col col-md-12 category_field')
+                    h2 #{cat[0].category}
+                    h2 #{count}
+                    a(href=`category?id=${cat[0].id}&page=${currentPage}`) all
+                    a(href=`category?id=${cat[0].id}&sort=desc&page=${currentPage}`) high price
+                    a(href=`category?id=${cat[0].id}&sort=asc&page=${currentPage}`) low price
+                each val,index in goods
+                    include card
+            div.pagination
+                a(href=`category?id=${cat[0].id}&sort=${sort}&page=${currentPage-1}`)
+                    button.prev_btn prev
+                input(class="pagination_input" value=currentPage)
+                a(href=`category?id=${cat[0].id}&sort=${sort}&page=${parseInt(currentPage)+1}`) 
+                    button.next_btn next
+            div #{cat[0].description}
+    
+        include nav
+    include footer

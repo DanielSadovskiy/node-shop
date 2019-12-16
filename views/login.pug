@@ -1,0 +1,16 @@
+include head
+div(class='wrap')
+  div(class='content')
+    header(class='jumbotron')
+        include order_header
+    div
+        form.dish_form
+            input(name="email" type="email" placeholder="email")
+            input(name="password" type="password" placeholder="password")
+            input(type="checkbox" onclick="showOnLogin()") 
+            span Show Password
+        button(class="login") login
+
+
+    include footer
+

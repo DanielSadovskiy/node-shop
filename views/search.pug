@@ -1,0 +1,13 @@
+include head.pug
+div(class='wrap')
+    div(class='content')
+        header(class='jumbotron')
+            include header
+        
+        div(class='container')
+            div(class='row justify-content-md-center')
+                div(class="col col-md-12")
+                each val, index in goods
+                    include card
+    include nav
+    include footer
