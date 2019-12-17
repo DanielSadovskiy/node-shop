@@ -99,7 +99,7 @@ app.post('/login', async function (req,res){
         if(await  bcrypt.compare(fields.password, user.password)) {
           const {SECRET_KEY} = dotenv.config().parsed;
           console.log(SECRET_KEY);
-          let token = await jwt.sign({ name: user.name, id: user.id, role: user.role }, SECRET_KEY ,{ expiresIn: '24h' });
+          let token = await jwt.sign({ name: user.name, id: user.id, role: user.role, email: user.email }, SECRET_KEY ,{ expiresIn: '24h' });
           let refreshToken = await randtoken.uid(256);
           store.set('user', { token:token,refreshToken:refreshToken })
           res.status(200).json({
@@ -190,26 +190,18 @@ app.get('/goods', function (req, res) {
     res.render('goods', { goods: JSON.parse(JSON.stringify(result)) });
   });
 });
-app.get('/update',verifyToken, function (req, res) {
-  const {SECRET_KEY} = dotenv.config().parsed;
-  jwt.verify(req.token, SECRET_KEY, (err, authData) => {
-    if(err) {
-      res.sendStatus(403);
-    } else {
-      console.log(req.query.id);
-      con.query('SELECT * FROM goods WHERE id=' + req.query.id, function (error, result, fields) {
-        if (error) throw error;
-        res.render('update', { goods: JSON.parse(JSON.stringify(result)) });
-        console.log(result);
-      });
-    }
-  });
-  
+app.get('/update', function (req, res) {
+    con.query('SELECT * FROM goods WHERE id=' + req.query.id, function (error, result, fields) {
+      if (error) throw error;
+      res.render('update', { goods: JSON.parse(JSON.stringify(result)) });
+      console.log(result);
+    });
 });
 app.post('/update', verifyToken, function (req, res) {
   const {SECRET_KEY} = dotenv.config().parsed;
+  console.log("role", req.role);
   jwt.verify(req.token, SECRET_KEY, (err, authData) => {
-    if(err) {
+    if(err || req.role !== "admin") {
       res.sendStatus(403);
     } else {
       let form = new formidable.IncomingForm();
@@ -286,19 +278,29 @@ app.post('/add-to-cart', function (req, res) {
 
 
 app.post('/finish-order', function (req, res) {
-    console.log(req.body);
+    // console.log(req.body);
     if (req.body.key.length != 0) {
       let key = Object.keys(req.body.key);
       con.query(
         'SELECT id,name,cost FROM goods WHERE id IN (' + key.join(',') + ')',
         function (error, result, fields) {
           if (error) throw error;
-          console.log(result);
           sendMail(req.body, result);
-          res.send('1');
         });
+        con.query(
+          'INSERT INTO orders (user_id) VALUES (' + req.body.id  + ')',
+          function (error, result, fields) {
+            if (error) throw error;
+            console.log("result" ,result);
+            for (let i =0; i < key.length; i++){
+              con.query(`INSERT INTO ordered_goods VALUES (${parseInt(key[i])}, '${req.body.id}' , ${parseInt(req.body.key[key[i]])})`);
+    
+            }
+            res.send('1');
+          });
     }
     else {
+      alert("Empty");
       res.send('0');
     }
   });
@@ -347,6 +349,7 @@ function verifyToken(req, res, next) {
   if(typeof bearerHeader !== 'undefined') {
     const bearer = bearerHeader.split(' ');
     const bearerToken = bearer[1];
+    req.role = jwt.decode(bearerToken).role;
     req.token = bearerToken;
     next();
   } else {

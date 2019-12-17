@@ -1,10 +1,43 @@
-document.querySelector('#lite-shop-order').onsubmit = function (event) {
+if(localStorage.getItem('token')){
+    const token = localStorage.getItem("token");
+    const formData = new FormData();
+    formData.append('token',token);
+    fetch(`decode`,{
+        method: 'POST',
+        body: formData,
+    }).then((response) => {
+        return response.json(); 
+    }).then(res=> {
+        console.log(11, res.name);
+        document.querySelector('#username').value = res.name;
+        document.querySelector('#email').value = res.email;
+    })
+}
+document.querySelector('#lite-shop-order').onsubmit = async function (event) {
     event.preventDefault();
     let username = document.querySelector('#username').value.trim();
     let phone = document.querySelector('#phone').value.trim();
     let email = document.querySelector('#email').value.trim();
     let address = document.querySelector('#address').value.trim();
-
+    let id ;
+    if(localStorage.getItem("token")){
+        const token = localStorage.getItem("token");
+        const formData = new FormData();
+        formData.append('token',token);
+        await fetch(`decode`,{
+            method: 'POST',
+            body: formData,
+        }).then((response) => {
+            return response.json(); 
+        }).then(res=> {
+            id = res.id;
+        }).catch(e => {
+            console.log(e);
+        })
+    } else {
+        id = phone;
+    }
+   
     if (!document.querySelector('#rule').checked) {
         Swal.fire({
             title: 'Agree with rules!',
@@ -14,10 +47,6 @@ document.querySelector('#lite-shop-order').onsubmit = function (event) {
           })
     }
 
-    if (username == '' || phone == '' || email == '' || address == '') {
-        //не заполнены поля
-    }
-
     fetch('/finish-order', {
         method: 'POST',
         body: JSON.stringify({
@@ -25,7 +54,8 @@ document.querySelector('#lite-shop-order').onsubmit = function (event) {
             'phone': phone,
             'address': address,
             'email': email,
-            'key': JSON.parse(localStorage.getItem('cart'))
+            'key': JSON.parse(localStorage.getItem('cart')),
+            'id': id
         }),
         headers: {
             'Accept': 'application/json',
@@ -42,5 +72,7 @@ document.querySelector('#lite-shop-order').onsubmit = function (event) {
             else {
 
             }
+        }).catch(e => {
+            console.log(e);
         })
 }

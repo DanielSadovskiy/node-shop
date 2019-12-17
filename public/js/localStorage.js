@@ -9,15 +9,19 @@ if(localStorage.getItem('token')){
     .then((response) => {
         return response.json(); 
     }).then(res=> {
+        if(res.role === "admin"){
+            document.querySelector('.btn_create').style.display = "block";
+            for(let item of document.querySelectorAll('.update_btn')){
+                item.style.display = "block";
+            }
+            for(let item of document.querySelectorAll('.delete_btn')){
+                item.style.display = "block";
+            }
+        }
         console.log(res)
         document.querySelector('.login_btn').innerHTML = res.name;
-        document.querySelector('.btn_create').style.display = "block";
-        for(let item of document.querySelectorAll('.update_btn')){
-            item.style.display = "block";
-        }
-        for(let item of document.querySelectorAll('.delete_btn')){
-            item.style.display = "block";
-        }
+        
+       
         document.querySelector('.login_btn').onmouseover = function(){
             this.innerHTML = "Logout";
         }
@@ -26,12 +30,10 @@ if(localStorage.getItem('token')){
         }
         document.querySelector('.login_btn').parentElement.href="/";
         document.querySelector('.login_btn').onclick = function(){
-            localStorage.clear();
+            localStorage.removeItem("token");
+            localStorage.removeItem("refreshToken");
             window.location.replace('/');
         }
-        
+        document.querySelector('.register_btn').style.display = "none";
     })
-    document.querySelector('.register_btn').style.display = "none";
-   
-    
 }
